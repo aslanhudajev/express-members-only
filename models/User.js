@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Scema;
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   "first-name": {
@@ -24,6 +24,10 @@ const userSchema = new Schema({
     unique: true,
     minLength: 1,
   },
+});
+
+userSchema.virtual("url").get(function () {
+  return `/user/${this._id}`;
 });
 
 export default mongoose.model("User", userSchema);
