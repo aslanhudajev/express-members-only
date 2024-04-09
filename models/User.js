@@ -24,6 +24,11 @@ const userSchema = new Schema({
     unique: true,
     minLength: 1,
   },
+  password: {
+    type: String,
+    minLength: 1,
+    maxLength: 32,
+  },
 });
 
 userSchema.virtual("url").get(function () {

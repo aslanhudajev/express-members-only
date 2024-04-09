@@ -1,13 +1,14 @@
 import express from "express";
+import * as FeedController from "../controllers/feed.js";
 const router = express.Router();
 
 //homepage
-router.get("/");
+router.get("/", (req, res, next) => res.render("home"));
 
 //get feed
-router.get("/feed");
+router.get("/feed", FeedController.showFeed);
 //get post page
-router.get("/post/:id");
+router.get("/post/:id"), FeedController.showPost;
 
 //get profile page
 router.get("/user/:id");
@@ -17,7 +18,7 @@ router.get("/signin");
 router.get("/signup");
 
 //make new post
-router.post("/feed/new");
+router.post("/feed/new", FeedController.createPost);
 
 //delete post
 router.post("/post/:id/delete");
