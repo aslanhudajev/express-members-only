@@ -4,14 +4,15 @@ import * as postMW from "../middlewares/post.js";
 export const showFeed = [
   postMW.getPosts,
   (req, res, next) => {
-    res.render("feed", { posts: req.locals.GET.posts });
+    res.render("feed", { posts: res.locals.GET.posts });
+    console.log(res.locals.GET.posts);
   },
 ];
 
 export const showPost = [
   postMW.getPost,
   (req, res, next) => {
-    res.render("post", { post: req.locals.GET.post });
+    res.render("post", { post: res.locals.GET.post });
   },
 ];
 

@@ -6,16 +6,21 @@ import Post from "../models/Post.js";
 //! TODO: figure out middleware flow using SOLID principles
 
 export const getPost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findOne({ _id: req.params.id })
-    .populate("user")
-    .exec();
+  try {
+    const post = await Post.findOne({ _id: req.params.id })
+      .populate("user")
+      .exec();
 
-  if (!res.locals.GET) {
-    res.locals.GET = {
-      post: post,
-    };
-  } else {
-    res.locals.GET.post = post;
+    if (res.locals.GET === undefined) {
+      res.locals.GET = {
+        post: post,
+      };
+    } else {
+      res.locals.GET.post = post;
+    }
+  } catch (error) {
+    console.log(error);
+    return next(error);
   }
 
   return next();

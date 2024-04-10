@@ -1,0 +1,8 @@
+extends layout 
+include ./mixins/post
+
+block content
+    div(class="feed flex flex-col items-center justify-start p-8 flex-1")
+        include ./partials/forms/post
+        each post in posts
+            +post(post)

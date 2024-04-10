@@ -1,5 +1,7 @@
 import express from "express";
 import * as FeedController from "../controllers/feed.js";
+import * as ProfileController from "../controllers/profile.js";
+import * as UserController from "../controllers/user.js";
 const router = express.Router();
 
 //homepage
@@ -14,8 +16,8 @@ router.get("/post/:id"), FeedController.showPost;
 router.get("/user/:id");
 
 //get auth pages
-router.get("/signin");
-router.get("/signup");
+router.get("/signin", UserController.showSignIn);
+router.get("/signup", UserController.showSignUp);
 
 //make new post
 router.post("/feed/new", FeedController.createPost);
