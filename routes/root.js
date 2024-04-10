@@ -27,6 +27,6 @@ router.post("/post/:id/delete");
 
 //log in and create new user
 router.post("/signin");
-router.post("/signup");
+router.post("/signup", UserController.createUser);
 
 export default router;

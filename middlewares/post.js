@@ -72,7 +72,7 @@ export const validateFormInput = [
 
 export const createPost = asyncHandler(async (req, res, next) => {
   const post = new Post({
-    ...res.body,
+    ...req.body,
   });
 
   if (!res.locals.POST) {
