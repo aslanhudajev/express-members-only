@@ -1,8 +1,10 @@
 import express, { urlencoded } from "express";
+import session from "express-session";
 import mongoose from "mongoose";
 import "dotenv/config";
 
 import rootRouter from "./routes/root.js";
+import passport from "passport";
 
 await mongoose
   .connect(process.env.MDB_CS, { dbName: process.env.DB_NAME })
@@ -12,6 +14,15 @@ await mongoose
 const app = express();
 app.set("view engine", "pug");
 app.set("views", "./views");
+
+app.use(
+  session({
+    secret: process.env.AUTH_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.session());
 
 app.use(express.static("./public"));
 app.use(express.json());

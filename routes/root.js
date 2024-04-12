@@ -5,7 +5,7 @@ import * as UserController from "../controllers/user.js";
 const router = express.Router();
 
 //homepage
-router.get("/", (req, res, next) => res.render("home"));
+router.get("/", (req, res, next) => res.render("home", { user: req.user }));
 
 //get feed
 router.get("/feed", FeedController.showFeed);
@@ -26,7 +26,7 @@ router.post("/feed/new", FeedController.createPost);
 router.post("/post/:id/delete");
 
 //log in and create new user
-router.post("/signin");
+router.post("/signin", UserController.signin);
 router.post("/signup", UserController.createUser);
 
 export default router;
