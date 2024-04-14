@@ -4,7 +4,7 @@ import * as UserController from "../controllers/user.js";
 const router = express.Router();
 
 //homepage
-router.get("/", (req, res, next) => res.render("home", { user: req.user })); //* DONE
+router.get("/", (req, res, next) => res.redirect("/feed")); //* DONE
 
 //get feed
 router.get("/feed", FeedController.showFeed); //* DONE
