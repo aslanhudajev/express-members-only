@@ -4,5 +4,9 @@ include ./mixins/post
 block content
     div(class="feed flex flex-col items-center justify-start p-8 flex-1")
         include ./partials/forms/post
-        each post in posts
-            +post(post)
+        div(class="posts flex flex-col items-center justify-start w-full gap-4")
+            if posts.length > 0
+                each post in posts
+                    +post(post)
+            else 
+                span(class="text-gray-200 dark:text-gray-700") There are no posts here yet...

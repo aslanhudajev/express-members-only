@@ -14,7 +14,9 @@ export const createUser = [
   userMW.createUser,
   asyncHandler(async (req, res, next) => {
     if (res.locals.POST.validationErrors) {
-      //!Add rendering of form with fields filled in here
+      res.render("./user/signup", {
+        errors: res.locals.POST.validationErrors.array(),
+      });
     } else {
       await userMW.createUserCommit(res);
       res.redirect("./signin");
@@ -22,11 +24,20 @@ export const createUser = [
   }),
 ];
 
+export const updateUser = asyncHandler(async (req, res, next) => {});
+
 export const deleteUser = asyncHandler(async (req, res, next) => {});
 
 export const signin = [
   userMW.signin,
   (req, res, next) => {
     res.redirect("/");
+  },
+];
+
+export const signout = [
+  userMW.signout,
+  (req, res, next) => {
+    res.redirect("/feed");
   },
 ];

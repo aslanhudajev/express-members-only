@@ -1,5 +1,5 @@
-div(class="feed flex flex-col items-center justify-start p-8 flex-1")
-    div(class="max-w-2xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800")
+div(class="flex flex-col items-center justify-start p-8 flex-1")
+    div(class="max-w-2xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-8")
         h2(class="text-lg font-semibold text-gray-700 dark:text-white") Sign up to Members Only
         form(method="POST")
             div(class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2")
@@ -20,6 +20,18 @@ div(class="feed flex flex-col items-center justify-start p-8 flex-1")
                     input#password(name="password" type="password", class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring")
                 div
                     label(class="text-gray-700 dark:text-gray-200", for="password-conf") Password Confirmation
-                    input#password-conf(name="password-conf" type="password", class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring")
+                    input#password-conf(name="password-confirm" type="password", class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring")
             div(class="flex justify-end mt-6")
                 button(class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600") Sign up
+    
+    if errors
+        div(class="flex flex-col max-w-2xl gap-4 w-full")
+            each error in errors
+                div(class="flex w-full overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800")
+                    div(class="flex items-center justify-center min-w-12 bg-red-500")
+                        svg(class="w-6 h-6 text-white fill-current", viewBox="0 0 40 40", xmlns="http://www.w3.org/2000/svg")
+                            path(d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z")
+                    div(class="px-4 py-2 -mx-3")
+                        div(class="mx-3")
+                            span(class="font-semibold text-red-500 dark:text-red-400") Error
+                            p(class="text-sm text-gray-600 dark:text-gray-200")= error.msg

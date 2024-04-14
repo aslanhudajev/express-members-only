@@ -29,7 +29,7 @@ export const getPost = asyncHandler(async (req, res, next) => {
 export const getPosts = asyncHandler(async (req, res, next) => {
   try {
     const posts = await Post.find({})
-      .sort({ "posted-date": 1 })
+      .sort({ "posted-date": -1 })
       .populate("user")
       .exec();
 
@@ -51,12 +51,13 @@ export const getPosts = asyncHandler(async (req, res, next) => {
 export const validateFormInput = [
   body("content", "Post can not be empty")
     .trim()
+    .escape()
     .isLength({ min: 1, max: 256 })
     .withMessage("Post has to be between 1 and 256 characters."),
 
   (req, res, next) => {
-    const validationsErrors = validationResult(req);
-    if (!validationResult.isEmpty()) {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
       if (!res.locals.POST) {
         res.locals.POST = {
           validationErrors,
@@ -73,6 +74,7 @@ export const validateFormInput = [
 export const createPost = asyncHandler(async (req, res, next) => {
   const post = new Post({
     ...req.body,
+    user: req.user.id,
   });
 
   if (!res.locals.POST) {

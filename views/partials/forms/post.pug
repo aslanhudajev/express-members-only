@@ -1,11 +1,17 @@
 section(class="max-w-2xl w-full p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800 mb-8")
-    div(class="flex items-center justify-start")
-        img(class="hidden object-cover w-10 h-10 mr-2 rounded-full sm:block", src="https://images.unsplash.com/photo-1502980426475-b83966705988?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=40&q=80", alt="avatar")
-        a( href="#" class=" text-gray-700 cursor-pointer dark:text-gray-200", tabindex="0", role="link")= `@user`
-    form(method="POST" action="/feed/new")
-        div(class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1")
-            div
-                label(class="text-gray-700 dark:text-gray-200", for="username") What´s happening?
-                textarea#username(type="text", class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring")
-        div(class="flex justify-end mt-6")
-            button(class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600") Post
+    if user     
+        div(class="flex items-center justify-start")
+            img(class="hidden object-cover w-10 h-10 mr-2 rounded-full sm:block", src=`data:image/png;base64,${user.identicon}`, alt="avatar")
+            a( href="#" class=" text-gray-700 cursor-pointer dark:text-gray-200", tabindex="0", role="link")= user ? `@${user.username}` : ""
+        form(method="POST" action="/feed/new")
+            div(class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1")
+                div
+                    label(class="text-gray-700 dark:text-gray-200", for="content") What's happening?
+                    textarea#content(name="content" type="text", class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring")
+            div(class="flex justify-end mt-6")
+                button(class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600") Post
+    else 
+        div(class="flex flex-row items-center justify-between")
+            span(class="text-gray-700 dark:text-gray-200") Sign in to make a post
+            a(href="/signin")
+                button(class="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:bg-sky-600") Sign in

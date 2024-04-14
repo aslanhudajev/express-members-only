@@ -17,6 +17,7 @@ const userSchema = new Schema({
     minLength: 1,
     maxLength: 64,
     trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -26,9 +27,9 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    minLength: 1,
-    maxLength: 32,
+    maxLength: 256,
   },
+  identicon: String,
 });
 
 userSchema.virtual("url").get(function () {

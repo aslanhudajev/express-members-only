@@ -2,8 +2,14 @@ header(class="bg-white shadow dark:bg-gray-800 flex flex-row items-center justif
     div(class="container flex flex-row items-center justify-start p-6 mx-auto text-gray-600 capitalize dark:text-gray-300")
         a(href="/" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Home
         a(href="/feed" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Feed
-        a(href="/profile" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Profile
-    div(class="container flex flex-row items-center p-6 mx-auto justify-end text-gray-600 capitalize dark:text-gray-300")
-        a(href="/signin" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Sign in
-        a(href="/signup" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Sign up
+        if user 
+            a(href="/profile" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Profile
+    if user 
+        div(class="container flex flex-row items-center p-6 mx-auto justify-end text-gray-600 capitalize dark:text-gray-300")
+            form(method="POST" action="/signout") 
+                button(type="submit" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Sign out
+    else 
+        div(class="container flex flex-row items-center p-6 mx-auto justify-end text-gray-600 capitalize dark:text-gray-300")
+            a(href="/signin" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Sign in
+            a(href="/signup" class="border-b-2 border-transparent hover:text-gray-800 transition-colors duration-300 transform dark:hover:text-gray-200 hover:border-blue-500 mx-1.5 sm:mx-6") Sign up
 
