@@ -30,7 +30,7 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   try {
     const posts = await Post.find({})
       .sort({ "posted-date": -1 })
-      .populate("user")
+      .populate("user", "username identicon")
       .exec();
 
     if (!res.locals.get) {

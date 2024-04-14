@@ -2,7 +2,7 @@ section(class="max-w-2xl w-full p-6 mx-auto bg-white rounded-md shadow-md dark:b
     if user     
         div(class="flex items-center justify-start")
             img(class="hidden object-cover w-10 h-10 mr-2 rounded-full sm:block", src=`data:image/png;base64,${user.identicon}`, alt="avatar")
-            a( href="#" class=" text-gray-700 cursor-pointer dark:text-gray-200", tabindex="0", role="link")= user ? `@${user.username}` : ""
+            a( href="/profile" class=" text-gray-700 cursor-pointer dark:text-gray-200", tabindex="0", role="link")= user ? `@${user.username}` : ""
         form(method="POST" action="/feed/new")
             div(class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-1")
                 div

@@ -6,6 +6,7 @@ import passport from "passport";
 import crypto from "node:crypto";
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
+import Post from "../models/Post.js";
 
 passport.use(
   new LocalStrategy(
@@ -29,13 +30,67 @@ passport.use(
 passport.serializeUser((user, done) => {
   done(null, {
     id: user.id,
+    "first-name": user["first-name"],
+    "last-name": user["last-name"],
     username: user.username,
     identicon: user.identicon,
+    email: user.email,
   });
 });
 
 passport.deserializeUser((user, done) => {
   return done(null, user);
+});
+
+export const getCurrentUserPosts = asyncHandler(async (req, res, next) => {
+  const posts = await Post.find({ user: req.user.id })
+    .populate("user", "username identicon")
+    .sort({ "posted-date": -1 })
+    .exec();
+
+  if (!res.locals.GET) {
+    res.locals.GET = {
+      posts,
+    };
+  } else {
+    res.locals.GET.posts = posts;
+  }
+
+  return next();
+});
+
+export const getUser = asyncHandler(async (req, res, next) => {
+  const profile = await User.findOne(
+    { _id: req.params.id },
+    "first-name last-name username email identicon",
+  ).exec();
+
+  if (!res.locals.GET) {
+    res.locals.GET = {
+      profile,
+    };
+  } else {
+    res.locals.GET.profile = profile;
+  }
+
+  return next();
+});
+
+export const getUserPosts = asyncHandler(async (req, res, next) => {
+  const posts = await Post.find({ user: req.params.id })
+    .populate("user", "username identicon")
+    .sort({ "posted-date": -1 })
+    .exec();
+
+  if (!res.locals.GET) {
+    res.locals.GET = {
+      posts,
+    };
+  } else {
+    res.locals.GET.posts = posts;
+  }
+
+  return next();
 });
 
 export const validateFormInput = [
@@ -103,7 +158,7 @@ export const createUser = (req, res, next) => {
 
     const identicon = new Identicon(
       crypto.randomBytes(20).toString(),
-      200,
+      100,
     ).toString();
     user.identicon = identicon;
 
